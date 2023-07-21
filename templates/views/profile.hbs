@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .profile-container {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f2f2f2;
+    }
+
+    .profile-card {
+        background-color: #f0f0f0;
+        width: 60%;
+      padding: 20px;
+   margin-left: 30px;
+     cursor: pointer;
+      box-shadow: 10px 10px 20px #d1d1d1, -10px -10px 20px #ffffff;
+      overflow: hidden;
+      animation: slide-in 0.5s ease-out;
+    }
+
+    .profile-header {
+      background-color: #3498db;
+      padding: 20px;
+      text-align: center;
+      color: #fff;
+    }
+
+    .profile-header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    .profile-body {
+      padding: 30px;
+    }
+
+    .profile-body p {
+      margin: 0 0 10px;
+      line-height: 1.5;
+    }
+
+    .profile-picture{
+        width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      box-shadow: 5px 5px 10px #b1b1b1, -5px -5px 10px #ffffff;
+      margin-bottom: 10px;
+
+    }
+
+    .profile-footer {
+      background-color: #f2f2f2;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .profile-footer button {
+      padding: 10px 20px;
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .profile-footer button:hover {
+      background-color: #297fb8;
+    }
+
+    /* Animation */
+    @keyframes slide-in {
+      from {
+        transform: translateY(-100%);
+      }
+      to {
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="profile-container">
+    <div class="profile-card">
+      <div class="profile-header">
+        <h1>User Info </h1>
+      </div>
+      <div class="profile-body">
+        <div class="profilePicture">
+         <img class="profile-picture" src="pictures/upload/users/{{users.username}}.jpg">
+       </div>
+           
+        <p><strong>ID:</strong> {{users.id}}</p>
+        <p><strong>Username:</strong> {{users.username}}</p>
+            <p><strong>Full Name:</strong> {{users.fullname}}</p>
+        <p><strong>Email:</strong> {{users.email}}</p>
+        <p><strong>Country:</strong> {{users.country}}</p>
+  
+
+       
+      </div>
+      <div class="profile-footer">
+       <a href="/home"> <button>Go Back</button></a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

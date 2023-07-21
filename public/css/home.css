@@ -1,0 +1,304 @@
+/* Global styles */
+body {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h2 {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+p {
+  line-height: 1.6;
+}
+
+/* Header styles */
+.header {
+  background-color: #2c3e50;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+}
+
+.header h1 {
+  font-size: 36px;
+}
+/* About section styles */
+.about-section {
+  padding: 80px 0;
+  text-align: center;
+}
+
+.about-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column; /* Set flex-direction to column to stack content vertically on small screens */
+}
+
+.about-image {
+  margin-top: 30px; /* Add some space between the text and the image */
+  max-width: 400px;
+  position: relative; /* Position for the animation */
+  overflow: hidden;
+}
+
+.about-image img {
+  max-width: 100%;
+  border-radius: 50px;
+  /* Add a subtle zoom effect on hover */
+  transition: transform 0.3s ease;
+}
+
+.about-image img:hover {
+  transform: scale(1.1); /* Increase the size slightly on hover */
+}
+
+.about-text {
+  text-align: left;
+  max-width: 600px; /* Limit the width of the text to match the image width */
+}
+
+/* Styles for larger screens */
+@media only screen and (min-width: 768px) {
+  .about-content {
+    flex-direction: row; /* On larger screens, align content in a row */
+  }
+
+  .about-text {
+    flex: 1; /* Allow the text to take up the available space */
+    padding-right: 30px; /* Add space between the text and the image */
+    text-align: left;
+  }
+
+  .about-image {
+    flex: 1; /* Allow the image to take up the available space */
+    text-align: right;
+  }
+
+  /* Animation for the image on larger screens */
+  .about-image img {
+    transition: transform 0.5s ease;
+  }
+
+  .about-image img:hover {
+    transform: rotate(5deg) scale(1.1); /* Rotate and zoom in the image on hover */
+  }
+}
+
+/* Styles for smaller screens (up to 767px) */
+@media only screen and (max-width: 767px) {
+  .about-image {
+    max-width: 80%; /* Reduce the image size on smaller screens */
+    margin: 0 auto; /* Center the image horizontally */
+  }
+
+  .about-text {
+    padding-top: 30px; /* Add space between the image and text */
+  }
+
+  /* Animation for the image on smaller screens */
+  .about-image img {
+    transition: transform 0.5s ease;
+  }
+
+  .about-image img:hover {
+    transform: rotate(-5deg) scale(1.1); /* Rotate and zoom in the image on hover */
+  }
+}
+
+/* Rest of the styles for section-title, section-description, and btn as before */
+/* Button styles */
+.btn {
+  text-decoration: none;
+  display: inline-block;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #fff;
+  background-color: #24c060;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #46e081; /* Slightly darker shade on hover */
+  transform: translateY(-2px); /* Move the button 2 pixels up on hover */
+}
+
+/* Button styles for smaller screens (up to 767px) */
+@media only screen and (max-width: 767px) {
+  .btn {
+    width: 100%; /* Make the button full-width on smaller screens */
+    margin-bottom: 10px; /* Add some space between buttons */
+  }
+}
+
+.artwork-section{
+
+      justify-content: center;
+      align-items: center;
+    
+      background-color: #f0f0f0;
+      overflow: hidden;
+
+}
+.artwork-content{
+    display: flex;
+      margin-bottom: 50px;
+}
+.artwork-main{
+    margin-top: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+.neumorphic-box {
+      background-color: #f0f0f0;
+      padding: 20px;
+   margin-left: 30px;
+     cursor: pointer;
+      box-shadow: 10px 10px 20px #d1d1d1, -10px -10px 20px #ffffff;
+      width: 300px;
+      height: 300px;
+      text-align: center;
+    }
+
+    .neumorphic-box img {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      box-shadow: 5px 5px 10px #b1b1b1, -5px -5px 10px #ffffff;
+      margin-bottom: 10px;
+    }
+
+    .neumorphic-box p {
+      font-size: 16px;
+      color: #555;
+      margin: 0;
+    }
+    .testimonial-container {
+      min-height: 500px;
+
+
+  text-align: center;
+      margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+.testimonial-center{
+  text-align: center;
+  width: 50%;
+    padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border: none;
+    background-color: rgba(255, 255, 255, 0.9);
+    min-height: 500px
+
+
+}
+.user-say{
+  color:#24c060 ;
+}
+
+
+.testimonial-slide {
+  display: flex;
+      min-height: 400px;
+  overflow: hidden;
+  transition: transform 0.5s ease;
+}
+
+.testimonial {
+  flex: 0 0 100%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.testimonial.active {
+  display: flex;
+  flex-direction: column;
+}
+.arrow{
+width: 25px;
+
+}
+
+.test-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.testimonial-text {
+  margin-bottom: 10px;
+}
+
+.testimonial-author {
+  font-weight: bold;
+}
+
+.controls {
+  margin-top: 10px;
+}
+
+button {
+  background-color: #24c060;
+  color: #fff;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #46e081;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fadeInUp {
+  animation: fadeInUp 1s ease;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 767px) {
+  .container {
+    padding: 10px;
+  }
+
+  .header h1 {
+    font-size: 28px;
+  }
+
+
+

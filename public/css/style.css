@@ -1,0 +1,358 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.navbar {
+
+  padding: 20px 0;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.navbar-brand {
+  font-size: 24px;
+}
+.logo{
+  width: 100px;
+}
+.navbar-logo {
+
+  color: #333;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.navbar-toggle {
+  display: none;
+}
+
+.navbar-toggle-label {
+  cursor: pointer;
+  display: none;
+}
+
+.navbar-toggle-label span {
+  display: block;
+  height: 2px;
+  width: 25px;
+  background-color: #333;
+  margin-bottom: 5px;
+  transition: background-color 0.3s;
+}
+
+.navbar-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.navbar-item {
+  margin-left: 20px;
+}
+
+.navbar-link {
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bolder;
+  transition: color 0.3s;
+}
+
+.navbar-link:hover {
+  color: #333;
+}
+
+@media (max-width: 768px) {
+  .navbar-brand {
+    font-size: 20px;
+  }
+
+  .navbar-toggle-label {
+    display: block;
+  }
+
+  .navbar-menu {
+    flex-direction: column;
+    position: absolute;
+    top: 10%;
+    left: 0;
+    right: 0;
+    background-color: #f9f9f9;
+    padding: 10px 0;
+    text-align: center;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s;
+  }
+
+  .navbar-item {
+    margin: 10px 0;
+  }
+
+  .navbar-toggle:checked ~ .navbar-menu {
+    max-height: 1000px;
+  }
+}
+.navbar-toggle-label span {
+  display: block;
+  height: 2px;
+  width: 25px;
+  background-color: #333;
+  margin-bottom: 5px;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.navbar-toggle:checked ~ .navbar-toggle-label span:nth-child(2) {
+  opacity: 0;
+}
+
+.navbar-toggle:checked ~ .navbar-toggle-label span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.navbar-toggle:checked ~ .navbar-toggle-label span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+.nav-home{
+     background:   linear-gradient(
+    rgba(0, 0, 0, 0.5),
+    rgba(0, 0, 0, 0.5)
+  ),url("../pictures/home.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+  background-position: center;
+  opacity: 1;
+
+}
+
+
+.home-section {
+ padding: 120px 0px;
+}
+
+.home-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.home-content {
+  text-align: center;
+}
+
+.home-title {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.home-description {
+  font-size: 18px;
+  margin-bottom: 40px;
+}
+
+.home-button {
+  display: inline-block;
+  padding: 15px 30px;
+  background-color: green;
+  color: #fff;
+  font-size: 16px;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.home-button:hover {
+  background-color: #555;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.home-content {
+  animation: fadeIn 1s ease-in-out;
+}
+.modal {
+      display: none; /* Hide the modal by default */
+      position: fixed; /* Position it fixed to overlay the content */
+      z-index: 1; /* Set a higher z-index to make sure it's on top */
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent black background */
+      overflow: auto; /* Enable scrolling if the content exceeds the viewport */
+    }
+
+    /* Styling for the modal content */
+    .modal-content {
+      background-color: #fefefe;
+      margin: 10% auto;
+      padding: 20px;
+      border: none;
+      width: 80%;
+      max-width: 400px;
+      border-radius: 8px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Styling for the close button */
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* Clear floats */
+    .clearfix::after {
+      content: "";
+      clear: both;
+      display: table;
+    }
+
+    /* Styling for the buttons */
+    .button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 15px 40px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 10px 5px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    .button-section{
+      text-align: center;
+      padding: 80px;
+    }
+
+    /* Styling for the login button */
+    .login-button {
+      background-color: #2196F3;
+    }
+
+    /* Styling for the signup button */
+    .signup-button {
+      background-color: #f44336;
+    }
+
+    /* Styling for the form inputs */
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      border-radius: 4px;
+    }
+
+    /* Styling for the form submit button */
+    .submit-button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+     .intro-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 40px;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    
+    .intro-section .content {
+      flex: 1;
+      max-width: 70%;
+    }
+    
+    .intro-section h1 {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+    
+    .intro-section p {
+      font-size: 18px;
+      margin-bottom: 40px;
+    }
+    
+    .intro-section img {
+      max-width: 300px;
+      border-radius: 20px;
+      animation: scale-in 1s ease-in-out;
+    }
+    
+    /* CSS animation keyframes */
+    @keyframes scale-in {
+      0% {
+        transform: scale(0);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    .featured-artwork {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.artwork-item {
+  position: relative;
+}
+
+.artwork-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.artwork-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 10px;
+  color: #fff;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.artwork-info h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.artwork-info p {
+  margin: 5px 0 0;
+  font-size: 14px;
+}
