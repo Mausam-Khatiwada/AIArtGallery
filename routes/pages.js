@@ -22,9 +22,52 @@ res.render('profile',{users: req.users});
 	else{
 		res.redirect("/login");
 	}
+
 	
 
 });
+
+
+
+router.get('/artworks',userController.isLoggedIn,(req,res)=>{
+		if (req.users) {
+res.render('artworks',{users: req.users});
+	}
+	else{
+		res.redirect("/artworks");
+	}
+
+	
+
+});
+
+
+
+
+router.get('/artworks',userController.isLoggedIn,(req,res)=>{
+		if (req.users) {
+res.render('artworks',{users: req.users});
+	}
+	else{
+		res.redirect("/login");
+	}
+	
+	
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
 router.get('/home',userController.isLoggedIn,(req,res)=>{
 	// console.log(req.username);
 
