@@ -138,11 +138,6 @@ else{
 
 }
 
-
-
-
-
-
 exports.isLoggedIn = async(req,res,next)=>{
 	// req.username="Check login..."
 	// next();
@@ -176,6 +171,11 @@ catch(error){
 		next();
 	}
 };
+
+
+
+
+
 
 
 // Function to handle file upload

@@ -1,28 +1,39 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const express = require("express");
 const authController = require("../controllers/auth");
 const path = require("path");
 const router = express.Router();
 const mysql = require("../connection").con;
 
-
 // Import the multer middleware for handling multipart form data
 const multer = require('multer');
+const artworkController = require('../controllers/artwork'); // Add this line to import the artwork controller
 
-// Set up the destination and filename for file uploads using multer
-
-
+// ... (existing code)// Set up the destination and filename for file uploads using multer
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-
-
- cb(null, 'public/pictures/upload/users');
-
-
-    // Specify the destination folder for file uploads
+    cb(null, 'public/pictures/upload/users');
   },
-   filename: (req, file, callback) => {
-    const username =req.body.username; 
-    const uniqueFileName = `${username}${path.extname(file.originalname)}`; // Concatenate the file extension to the filename
+  filename: (req, file, callback) => {
+    const username = req.body.username;
+    const uniqueFileName = `${username}${path.extname(file.originalname)}`;
     callback(null, uniqueFileName);
   }
 });
@@ -30,83 +41,49 @@ const storage = multer.diskStorage({
 // Create the multer instance with the configured storage
 const upload = multer({ storage: storage });
 
-
-
-
-
 const artworkStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, 'public/pictures/upload/artworks');
   },
   filename: (req, file, cb) => {
     const username = req.body.artistusername;
-    // You can modify the filename as per your requirement, e.g., add a timestamp
-    const uniquePrefix =`${username}${path.extname(file.originalname)}`;
-        cb(null, uniquePrefix);
-
+    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
   },
 });
 
 const artworkUpload = multer({ storage: artworkStorage });
 
-// Your other route handlers and middleware go here...
-
-module.exports = { router, artworkUpload };
-
-
-
-
-
-
-
-
-
-
-
-
 // Apply the isLoggedIn middleware before the routes
 router.use(authController.isLoggedIn);
+
+// Handle artwork form submission
+router.post('/uploadArtwork', artworkUpload.single('artPicture'), (req, res) => {
+  // Your code to handle artwork upload and save it to the database
+  const { artistusername, artPrompt, arttitle, artistName } = req.body;
+  const imageUrl = `/pictures/upload/artworks/${req.file.filename}`;
+
+  mysql.query('INSERT INTO artwork SET ?', { username: artistusername, path: imageUrl, artist: artistName, arttitle: arttitle, prompt: artPrompt }, (error, results) => {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Art added successfully");
+      res.redirect('/artworks');
+    }
+  });
+});
 
 // Update the route to include the upload middleware
 router.post('/signup', upload.single('picture'), authController.signup);
 router.post('/login', authController.login);
 
-
-
-
-
-
-
-
-
-
-
-  // Now you should be able to access the uploaded image using req.file
-  // and other form data using req.body (artPrompt in your case)
-router.post('/artworks', artworkUpload.single('artPicture'), (req, res) => {
-  // ... (same code as before) ...
-  const username = req.body.artistusername;
-  const { artPrompt } = req.body;
-  const arttitle = req.body.arttitle;
-  const artworkPicturePath = req.file.path; // The path where multer stored the image for artwork
-  const artist = req.body.artistName;
-  console.log(artist);
-  console.log(username);
-  mysql.query('INSERT INTO artwork SET ?', { username: username, artist: artist,arttitle:arttitle, prompt: artPrompt }, (error, results) => {
-    if (error) {
-      console.log(error);
-    } else {
-      
-      console.log("Art added successfully");
-
-     
-    }
-    // Redirect the user back to the artworks page or any other page
-    res.redirect('/artworks');
-  });
+router.get('/artworks', async (req, res) => {
+  try {
+    const artworks = await artworkController.fetchArtworksFromDatabase(); // Use the artwork controller to fetch data
+    res.render('artworks', { artworks: artworks });
+  } catch (error) {
+    console.error("Error fetching artwork data:", error);
+    res.status(500).send("Error fetching data from the database.");
+  }
 });
-
-
-
 
 module.exports = router;

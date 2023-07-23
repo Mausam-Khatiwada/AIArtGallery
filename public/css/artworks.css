@@ -131,3 +131,54 @@ body {
   display: inline-grid;
   margin: 50px;
 }
+/* Base styles */
+.neumorphic-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.artwork-item {
+  margin: 20px;
+  padding: 20px;
+  max-width: 300px; /* Set a maximum width for the neumorphic boxes */
+  background-color: #f0f0f0;
+  box-shadow: 10px 10px 30px #d0d0d0, -10px -10px 30px #ffffff;
+  transition: box-shadow 0.3s ease;
+  text-align: center;
+}
+
+/* Animation on hover */
+.artwork-item:hover {
+  box-shadow: 6px 6px 20px #d0d0d0, -6px -6px 20px #ffffff;
+}
+
+/* Add more animations if desired */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.neumorphic-box {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Centering elements */
+img {
+  display: block;
+  max-width: 100%; /* Ensure the image fits within the container */
+  margin: 0 auto;
+}
+
+.artwork-details {
+  margin-top: 15px;
+}
+
+h3,
+p {
+  margin: 0;
+}
