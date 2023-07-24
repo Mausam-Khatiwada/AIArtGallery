@@ -1,8 +1,7 @@
-
 /*FOR HEADER.HBS*/
 /* Basic styling for the header */
 .header {
-  background-color: #2c3e50;;
+  background-color: #2c3e50;
   color: #fff;
   padding: 20px 0;
 }
@@ -11,16 +10,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
 }
 
 .logo a {
-  color: #fff;
-  text-decoration: none;
+  color: #fff !important;
+  text-decoration: none !important;
   font-size: 24px;
-  font-weight: bold;
+  font-weight: bold !important;
 }
 
 .header-menu {
@@ -32,16 +30,22 @@
   margin-left: 20px;
 }
 
-.header-menu a {
+:not(.header).header-menu a {
   color: #fff;
   text-decoration: none;
-  font-size: 16px;
+}
+
+.header-menu a:hover {
+  color: #ccc;
 }
 
 .menu-toggle {
   display: none;
   cursor: pointer;
 }
+ul {
+    margin-top: 5px !important;
+  }
 
 .menu-toggle span {
   display: block;
@@ -50,22 +54,27 @@
   background-color: #fff;
   margin-bottom: 5px;
 }
-.profile{
 
+.profile a {
   text-decoration: none;
   list-style: none;
 }
-.profile-pic{
-  width: 50px;
 
-      border-radius: 50%;
-      margin-bottom: 10px;
+.profile-pic {
+  width: 50px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  list-style: none;
 }
+
 @media (max-width: 768px) {
-  .menu {
-    display: none;
+  .header-container {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+  }
+
+  .header-menu {
+    margin-top: 10px;
   }
 
   .header-menu li {
@@ -81,8 +90,17 @@
     background-color: #333;
   }
 
-  .menu-toggle.active ~ .menu {
+  .menu-toggle.active ~ .header-menu {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .header-menu li {
+    margin-left: 0;
+  }
+
+  .header-menu li:last-child {
+    margin-bottom: 0;
   }
 }
-

@@ -1,21 +1,5 @@
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const express = require("express");
 const authController = require("../controllers/auth");
 const path = require("path");
