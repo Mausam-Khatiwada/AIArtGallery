@@ -5,16 +5,64 @@ const bcrypt = require("bcryptjs");
 const {promisify} = require("util");
 exports.login = async(req,res)=>{
 
+
 try{
 
-const {email,password}=req.body;
-if (!email || !password) {
+const {email,role,password}=req.body;
+if (!email || !role|| !password) {
 	return res.status(400).render('login',{
 		msg: "Oops! Invalid credentials!",
 		msg_type:"error",
 
 	});
 }
+
+
+	if (role==='admin') {
+
+mysql.query('select * from admin where email=?',[email],async(error,result)=>{
+
+console.log(result);
+if(result.length<=0){
+
+return res.status(401).render('login',{
+		msg: "Oops! Invalid credentials. Please enter correct data!",
+		msg_type:"error",
+
+	});
+
+}
+else{
+	if (password!=result[0].password) {
+
+		return res.status(401).render('login',{
+		msg: "Oops! Invalid credentials. Please enter correct data!",
+		msg_type:"error",
+
+	});
+	}
+	else{
+		console.log("This is admin speaking!!!");
+		
+		res.status(200).redirect("/dashboard");
+
+	}
+
+
+
+}
+
+
+
+
+
+
+
+});
+	}
+	else{
+
+
 
 mysql.query('select * from users where email=?',[email],async(error,result)=>{
 console.log(result);
@@ -56,10 +104,15 @@ return res.status(401).render('login',{
 	res.cookie("Mausam",token,cookieOptions);
 	res.status(200).redirect("/home");
 	}
-
 }
-
 });
+	}
+
+
+
+
+
+
 
 
 }
@@ -68,6 +121,12 @@ catch(error){
 }
 
 }
+
+
+
+
+
+
 exports.signup = (req,res)=>{
 
 // const username = req.body.username;
@@ -174,7 +233,19 @@ catch(error){
 
 
 
+exports.logout= async(req,res)=>{
 
+
+res.cookie("Mausam","logout",{
+
+expires: new Date(Date.now()+2*1000),
+httpOnly:true
+
+});
+res.status(200).redirect("/");
+
+
+}
 
 
 
@@ -188,3 +259,4 @@ exports.uploadPicture = (req, res) => {
 
   res.status(200).send("File uploaded successfully");
 };
+

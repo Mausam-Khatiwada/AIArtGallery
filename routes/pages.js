@@ -16,7 +16,9 @@ router.get('/login', (req, res) => {
 router.get('/signup', (req, res) => {
   res.render('signup');
 });
-
+router.get('/dashboard', (req, res) => {
+  res.render('dashboard');
+});
 
 router.get('/profile', userController.isLoggedIn, (req, res) => {
   if (req.users) {
@@ -33,6 +35,7 @@ router.get('/home', userController.isLoggedIn, (req, res) => {
     res.redirect("/login");
   }
 });
+router.get('/logout', userController.logout);
 
 router.get('/artworks', userController.isLoggedIn, async (req, res, next) => {
   if (req.users) {

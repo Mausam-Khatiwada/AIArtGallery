@@ -16,7 +16,7 @@
         <div class="LoginFormContainer">
             <div class="LoginFormInnerContainer">
                 <div class="LogoContainer">
-                    <img src="/pictures/logo.png" class="logo">
+                    <img src="/pictures/logo-black.png" class="logo">
                 </div>
                 <header class="header">Log in</header>
                 <header class="subHeader">Welcome to <b>AI Art Gallery!</b> Please Enter your Details</header>
@@ -33,11 +33,24 @@
                         <input name="email" type="email" class="input" id="emailAddress" placeholder="Enter your Email Address">
                     </div>
 
+                    <div class="inputContainer">
+                        <label class="label" for="role">
+            
+                            <img src="/pictures/signup/role.png" class="labelIcon"><span>I am a*</span></label>
+                        
+
+                            <select class="input" id="role" name="role">
+                              <option value="user">User</option>
+                            <option value="admin">Admin</option>
+                          </select>
+
+                    </div>
+
                          
 
 
                     <div class="inputContainer">
-                        <label class="label" for="emailAddress"><img src="/pictures/signup/password.png"
+                        <label class="label" for="password"><img src="/pictures/signup/password.png"
                                 class="labelIcon"><span>Password*</span></label>
                         <input name="password" type="password" class="input" id="emailAddress" placeholder="Enter your Password">
                     </div>
@@ -47,6 +60,11 @@
                   
                     <button class="LoginButton">Login</button>
                 </form>
+                <a href="/">  <div class="go-back-button">
+  <span class="back-icon">&larr;</span>
+    Go Back 
+  </div>
+</a>
             </div>
         </div>
     </div>

@@ -319,40 +319,4 @@
         transform: scale(1);
       }
     }
-    .featured-artwork {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-}
-
-.artwork-item {
-  position: relative;
-}
-
-.artwork-item img {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-}
-
-.artwork-info {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  padding: 10px;
-  color: #fff;
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
-}
-
-.artwork-info h3 {
-  margin: 0;
-  font-size: 16px;
-}
-
-.artwork-info p {
-  margin: 5px 0 0;
-  font-size: 14px;
-}
+   

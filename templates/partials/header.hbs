@@ -1,9 +1,10 @@
 <header class="header">
   <nav class="header-navbar">
     <div class="header-container">
-      <div class="logo">
-        <!-- Your logo image or text goes here -->
-        <a href="/home" aria-label="Home">{{users.username}}</a>
+      <div class="profile">
+        <a href="/profile" aria-label="Profile">
+          <img class="profile-pic" src="/pictures/upload/users/{{users.username}}.jpg" alt="{{users.username}}">
+        </a>
       </div>
       <div class="menu-toggle">
         <span></span>
@@ -17,11 +18,9 @@
         <li><a href="/artworks">Artworks</a></li>
         <!-- Add more menu items as needed -->
       </ul>
-      <div class="profile">
-        <a href="/profile" aria-label="Profile">
-          <img class="profile-pic" src="/pictures/upload/users/{{users.username}}.jpg" alt="{{users.username}}">
+      <a href="/logout">
+      <div class="logout"><img class="logout-pic" src="/pictures/logout.png"></div>
         </a>
-      </div>
     </div>
   </nav>
 </header>

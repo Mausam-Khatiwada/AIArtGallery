@@ -181,3 +181,34 @@
 .LoginPageContainer::-webkit-scrollbar-thumb:hover {
     background: #4520ff;
 }
+
+.go-back-button {
+  width: 30%;
+  margin-top: 40px;
+  margin-left: 100px;
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.go-back-button:hover {
+  background-color: #45a049;
+}
+
+.icon {
+  margin-right: 10px;
+  font-size: 30px;
+}
+a{
+    text-decoration: none;
+    list-style: none;
+    color: white;
+    font-weight: bold;
+}
