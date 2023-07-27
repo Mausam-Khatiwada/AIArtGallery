@@ -16,8 +16,23 @@ router.get('/login', (req, res) => {
 router.get('/signup', (req, res) => {
   res.render('signup');
 });
-router.get('/dashboard', (req, res) => {
-  res.render('dashboard');
+router.get('/dashboard',
+  userController.isAdminLoggedIn,
+  userController.countUsers,
+  userController.countAdmin,
+  userController.countArtworks,
+  userController.getUsers,
+   (req, res) => {
+  if (req.admin) {
+    res.render('dashboard', { 
+      admin: req.admin,
+      userCount:req.userCount,
+      adminCount:req.adminCount,
+      artworkCount:req.artworkCount,
+      getUsers:req.getUsers});
+  } else {
+    res.redirect("/login");
+  }
 });
 
 router.get('/profile', userController.isLoggedIn, (req, res) => {
@@ -50,5 +65,9 @@ router.get('/artworks', userController.isLoggedIn, async (req, res, next) => {
     res.redirect("/login");
   }
 });
+
+
+
+
 
 module.exports = router;

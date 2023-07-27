@@ -44,7 +44,21 @@ else{
 	else{
 		console.log("This is admin speaking!!!");
 		
-		res.status(200).redirect("/dashboard");
+			const id = result[0].id;
+		const token=jwt.sign({id:id},process.env.JWT_SECRET,{
+			expiresIn:process.env.JWT_EXPIRES_IN,
+		});
+		console.log("The Token is" + token);
+		const cookieOptions={
+			expires: new Date
+			(Date.now()+
+				process.env.JWT_COOKIE_EXPIRES*24*60*60*1000
+				),
+
+			httpOnly: true,
+					}
+	res.cookie("Admin",token,cookieOptions);
+	res.status(200).redirect("/dashboard");
 
 	}
 
@@ -230,21 +244,46 @@ catch(error){
 		next();
 	}
 };
+exports.isAdminLoggedIn = async(req,res,next)=>{
+	if (req.cookies.Admin) {
+		try{
+const decode = await promisify(jwt.verify)
+(req.cookies.Admin, process.env.JWT_SECRET);
+	
+	// console.log(decode);
+
+	mysql.query("select * from admin where id=?",[decode.id],(err,results)=>{
+		 // console.log(results[0].id);
+
+		if (!results) {
+			return next();
+		}
+		req.admin = results[0];
+		return next();
+
+
+	});
+	}
+catch(error){
+	console.log(error);
+	return next();
+}
+}
+	else{
+		next();
+	}
+};
+	
+
 
 
 
 exports.logout= async(req,res)=>{
-
-
 res.cookie("Mausam","logout",{
-
 expires: new Date(Date.now()+2*1000),
 httpOnly:true
-
 });
 res.status(200).redirect("/");
-
-
 }
 
 
@@ -260,3 +299,104 @@ exports.uploadPicture = (req, res) => {
   res.status(200).send("File uploaded successfully");
 };
 
+exports.countUsers = (req,res,next)=>{
+	mysql.query('SELECT COUNT(*) as userCount FROM users', (err, results) => {
+  if (err) {
+    console.error('Error executing query:', err);
+    return;
+  }
+if (results) {
+	  const userCount = results[0].userCount;
+	   req.userCount = userCount;
+  console.log('Number of users in the database:', userCount);
+  next();
+}
+});
+}
+exports.countAdmin = (req,res,next)=>{
+	mysql.query('SELECT COUNT(*) as adminCount FROM admin', (err, results) => {
+  if (err) {
+    console.error('Error executing query:', err);
+    return;
+  }
+if (results) {
+	  const adminCount = results[0].adminCount;
+	   req.adminCount = adminCount;
+  console.log('Number of admin in the database:', adminCount);
+  next();
+}
+});
+}
+
+exports.countArtworks = (req,res,next)=>{
+	mysql.query('SELECT COUNT(*) as artworkCount FROM artwork', (err, results) => {
+  if (err) {
+    console.error('Error executing query:', err);
+    return;
+  }
+if (results) {
+	  const artworkCount = results[0].artworkCount;
+	   req.artworkCount = artworkCount;
+  console.log('Number of artwork in the database:', artworkCount);
+  next();
+}
+});
+}
+
+exports.getUsers = (req,res,next)=>{
+
+mysql.query('SELECT * from users',(err,result)=>{
+
+
+if (err) {
+	console.log(err);
+}
+else{
+const getUsers = result;
+console.log(getUsers)
+req.getUsers=getUsers;
+next();
+}
+
+
+})
+
+}
+
+
+
+exports.adminCreateUser = (req,res)=>{
+const {username,fullname,email,country,password} = req.body;
+
+
+mysql.query('SELECT username From users WHERE username = ?',[username], async(error, results)=>{
+
+if (error) {
+
+		console.log(error);
+
+	}
+	if (results.length>0) {
+		return res.render('dashboard',{
+
+			message: '*username is already registered!'
+		})
+	}
+
+
+
+	mysql.query('INSERT INTO users SET ?',{username:username,fullname:fullname, email:email, country:country, password:password}, (error, results)=>{
+if (error) {
+	console.log(error);
+}
+else{
+	return res.render("dashboard",{
+		registermessage: 'User registered!'
+	})
+}
+})
+
+
+})
+
+}

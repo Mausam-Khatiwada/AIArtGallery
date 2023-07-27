@@ -59,6 +59,7 @@ router.post('/uploadArtwork', artworkUpload.single('artPicture'), (req, res) => 
 // Update the route to include the upload middleware
 router.post('/signup', upload.single('picture'), authController.signup);
 router.post('/login', authController.login);
+// router.post('/dashboard', authController.adminCreateUser);
 
 router.get('/artworks', async (req, res) => {
   try {

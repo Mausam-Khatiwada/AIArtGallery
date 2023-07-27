@@ -6,12 +6,11 @@ body {
   font-family: "Hind Vadodara", -apple-system, BlinkMacSystemFont, Segoe UI,
     Helvetica Neue, Arial, sans-serif;
 }
-.container {
+.my-container {
   display: flex;
   height: 100vh;
   width: 100vw;
   flex-wrap: wrap;
-  overflow: hidden;
 }
 .main {
   height: calc(100% - 50px);
@@ -23,7 +22,6 @@ body {
   width: 220px;
   box-sizing: border-box;
   box-shadow: 0 0 2rem 0 rgb(0 0 0 / 5%);
-  overflow: hidden;
   transition: width 0.5s ease;
 }
 .container.nav-closed .sidebar,
@@ -107,9 +105,8 @@ body {
   flex: 1;
 }
 .page-content h1 {
-  font-size: 20px;
+
   font-weight: 400;
-  color: #333;
 }
 .header-search {
   height: 100%;
@@ -166,4 +163,182 @@ body {
   .header-logo {
     display: none;
   }
+}
+.welcome{
+  font-size: 30px;
+}
+/* styles.css */
+
+/* styles.css */
+
+/* Styles for the page content */
+.page-content {
+  text-align: center;
+}
+
+/* Container to hold the boxes */
+#home {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Common styles for the neumorphic boxes */
+.neumorphic-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+   width: 300px;
+  height: 150px;
+  border-radius: 15px;
+  background: #f0f0f0;
+  box-shadow: 10px 10px 20px #c7c7c7, -10px -10px 20px #ffffff;
+  margin: 20px;
+  padding: 20px;
+  font-size: 24px;
+  transition: box-shadow 0.3s ease-in-out; /* Add animation to box-shadow */
+}
+
+/* Styling for the "total-users" box */
+.total-users {
+  background: #c3e5ca; /* Green color */
+  box-shadow: 10px 10px 20px #a1d1a7, -10px -10px 20px #dffff3;
+}
+
+/* Styling for the "total-admin" box */
+.total-admin {
+  background: #f9c0bb; /* Red color */
+  box-shadow: 10px 10px 20px #e89d98, -10px -10px 20px #ffd6d2;
+}
+
+/* Styling for the "total-artwork" box */
+.total-artwork {
+  background: #cfe8fc; /* Blue color */
+  box-shadow: 10px 10px 20px #9ccbe5, -10px -10px 20px #ffffff;
+}
+
+/* Animation on hover for the neumorphic boxes */
+.neumorphic-box:hover {
+  box-shadow: 5px 5px 10px #c7c7c7, -5px -5px 10px #ffffff;
+}
+
+.icon{
+  width: 80px;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  .box-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .neumorphic-box {
+    width: 80%; /* Adjust box width for mobile layout */
+    height: 150px; /* Adjust box height for mobile layout */
+  }
+}
+
+#userManagement {
+ 
+  margin: 20px auto;
+  background-color: #f0f0f0; /* Light background color */
+  border-radius: 15px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+}
+.main-user{
+    display: flex;
+
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+.user-main {
+   display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.user-box {
+  margin: 10px;
+  padding: 15px;
+  border-radius: 15px;
+  background: #f0f0f0;
+  box-shadow: 5px 5px 10px #d9d9d9, -5px -5px 10px #ffffff; /* Neumorphic shadows and highlights */
+  transition: all 0.3s ease;
+  width: 15rem;
+}
+
+.user-box:hover {
+  transform: translate(5px, 5px); /* Add subtle hover effect */
+
+}
+
+.user-profile {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 10px;
+  display: block;
+  box-shadow: 3px 3px 5px #d9d9d9, -3px -3px 5px #ffffff; /* Neumorphic shadows and highlights */
+}
+
+li {
+  text-align: center;
+  color: #333;
+  font-weight: bold;
+  font-size: 19px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .user-box {
+    flex-basis: calc(100% - 20px);
+  }
+}
+.icons-side{
+  border-radius: 20px;
+display: flex;
+align-items: center;
+justify-content: center;
+box-shadow: 3px 3px 5px #d9d9d9, -3px -3px 5px #ffffff; /* Neumorphic shadows and highlights */
+margin-top: 20px;
+
+
+}
+.icon-pic{
+cursor: pointer;
+width: 30px;
+margin: 20px;
+}
+.icon-pic:hover{
+  background-color: mintcream;
+    border-radius: 20px;
+
+}
+.add-user{
+  margin: 0;
+  font-size: 20px;
+  cursor: pointer;
+  border-radius: 20px;
+  width: 200px;
+  display: flex;
+align-items: center;
+justify-content: center;
+  box-shadow: 3px 3px 5px #d9d9d9, -3px -3px 5px #ffffff; /* Neumorphic shadows and highlights */
+
 }

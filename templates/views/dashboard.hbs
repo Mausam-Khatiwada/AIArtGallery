@@ -3,26 +3,24 @@
 <head>
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" type="text/css" href="/css/usermanagement.css">
 </head>
 <body>
    <link rel="stylesheet" href="https://cdn.lineicons.com/2.0/LineIcons.css">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Hind+Vadodara:wght@300;500&display=swap" rel="stylesheet">
-
-<div class="container">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<div class="my-container">
   <div class="header">
     <div class="header-logo">
         <img src="/pictures/logo.png" class="logo">
     </div>
     <div class="header-search">
       <button class="button-menu">
-          
- 
-    <div class="btn-line"></div>
-    <div class="btn-line"></div>
-    <div class="btn-line"></div>
-  
-
+          <div class="btn-line"></div>
+          <div class="btn-line"></div>
+          <div class="btn-line"></div>
       </button>
       <input type="search" placeholder="Search Documentation..." />
     </div>
@@ -30,19 +28,176 @@
   <div class="main">
     <div class="sidebar">
       <ul>
-        <li><a href="#" class="active"><i class="lni lni-home"></i><span>Dashboard</span></a></li>
-        <li><a href="#"><i class="lni lni-text-format"></i><span>Form Elements</span></a></li>
-        <li><a href="#"><i class="lni lni-bar-chart"></i><span>Charts</span></a></li>
-        <li><a href="#"><i class="lni lni-grid"></i><span>Grid System</span></a></li>
-        <li><a href="#"><i class="lni lni-bullhorn"></i><span>Notifications</span></a></li>
-        <li><a href="#"><i class="lni lni-support"></i><span>Help & Support</span></a></li>
+        <li><a href="#home" class="active"><i class="lni lni-home"></i><span>Dashboard</span></a></li>
+        <li><a href="#userManagement"><i class="lni lni-users"></i><span>User Management</span></a></li>
+        <li><a href="#adminManagement"><i class="lni lni-control-panel"></i><span>Admin Management</span></a></li>
+        <li><a href="#artworkManagement"><i class="lni lni-image"></i><span>Artwork Management</span></a></li>
+        <li><a href="#notifications"><i class="lni lni-bullhorn"></i><span>Notifications</span></a></li>
+        <li><a href="#helpSupport"><i class="lni lni-support"></i><span>Help & Support</span></a></li>
       </ul>
     </div>
     <div class="page-content">
-      <h1>Welcome back, {{admin.fullname}}!</h1>
+
+<div id="home" class="box-container">
+
+<div class="total-users neumorphic-box">
+   <img class="icon" src="/pictures/dashboard/user.png">Users
+    <div class="user-count">
+      {{userCount}}
+  </div>
+</div>
+
+<div class="total-admin neumorphic-box">
+    <img class="icon" src="/pictures/dashboard/admin.png">Admins
+  <div class="admin-count">
+    {{adminCount}}
+  </div>
+</div>
+
+<div class="total-artwork neumorphic-box">
+    <img class="icon" src="/pictures/dashboard/art.png">Artworks
+  <div class="admin-count">
+    {{artworkCount}}
+  </div>
+</div>
+</div>
+
+
+<div id="userManagement">
+                        
+
+  <main class="main-user">
+        <button class="add-user" data-toggle="modal" data-target="#createUserModal">
+  Create user <img class="icon-pic" src="/pictures/dashboard/create.png">
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="createUserModal" tabindex="-1" role="dialog" aria-labelledby="createUserModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createUserModalLabel">Create User</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Your user creation form can be added here -->
+        <form action="/auth/dashboard" method="POST" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" name="username" class="form-control" id="username" placeholder="Enter Username">
+          </div>
+          <div class="form-group">
+            <label for="fullname">Fullname</label>
+            <input type="text" name="fullname" class="form-control" id="fullname" placeholder="Enter Fullname">
+          </div>
+          <div class="form-group">
+            <label for="country">Country</label>
+            <input name="country" type="text" class="form-control" id="country" placeholder="Enter Country">
+          </div>
+          <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" name="email" class="form-control" id="email" placeholder="Enter email">
+          </div>
+             <div class="form-group">
+            <label for="picture">Picture</label>
+            <input type="file" class="form-control" id="country" name="picture">
+                  </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input name="password" type="password" class="form-control" id="password" placeholder="Enter password">
+          </div>
+          <!-- Add more form fields as needed -->
+           <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-success">Submit</button>
+      </div>
+        </form>
+      </div>
+     
     </div>
   </div>
 </div>
+
+    <ul class="user-main">
+      {{#each getUsers}}
+      <div  class="user-box">
+      <img class="user-profile" src="/pictures/upload/users/{{this.username}}.jpg">
+      <li>{{this.fullname}}</li>
+            <div class="icons-side">
+        <a href="#"><img class="icon-pic" src="/pictures/dashboard/update.png"></a>
+        <a href="/view"><img class="icon-pic" src="/pictures/dashboard/view.png"></a>
+        <a href="#"><img class="icon-pic" src="/pictures/dashboard/delete.png"></a>
+
+      </div>
+      </div>
+
+
+      {{/each}}
+    </ul>
+  </main>
+
+
+
+</div>
+
+<div id="adminManagement">
+    <!-- Admin Management Content Here -->
+</div>
+
+<div id="artworkManagement">
+    <!-- Artwork Management Content Here -->
+</div>
+
+<div id="notifications">
+    <!-- Notifications Content Here -->
+</div>
+
+<div id="helpSupport">
+    <!-- Help & Support Content Here -->
+</div>
+
+    </div>
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+
+  // JavaScript code to handle section visibility
+  const sidebarLinks = document.querySelectorAll(".sidebar li a");
+  const pageContents = document.querySelectorAll(".page-content > div");
+
+  // Initially hide all sections except the first one
+  for (let i = 1; i < pageContents.length; i++) {
+    pageContents[i].style.display = "none";
+  }
+
+  // Event listener for sidebar links
+  sidebarLinks.forEach(link => {
+    link.addEventListener("click", function(e) {
+      e.preventDefault();
+      const targetSection = link.getAttribute("href");
+      
+      // Hide all sections
+      pageContents.forEach(content => {
+        content.style.display = "none";
+      });
+      
+      // Show the target section
+      document.querySelector(targetSection).style.display = "flex";
+      
+      // Update active link styling
+      sidebarLinks.forEach(link => {
+        link.classList.remove("active");
+      });
+      link.classList.add("active");
+    });
+  });
+</script>
 </body>
-<script type="text/javascript" src="/js/dashboard.js"></script>
 </html>
+
+
