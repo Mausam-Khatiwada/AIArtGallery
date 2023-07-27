@@ -1,0 +1,176 @@
+
+                        
+
+  <main class="main-user">
+        <button class="add-user" data-toggle="modal" data-target="#createUserModal">
+  Create user <img class="icon-pic" src="/pictures/dashboard/create.png">
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="createUserModal" tabindex="-1" role="dialog" aria-labelledby="createUserModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createUserModalLabel">Create User</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Your user creation form can be added here -->
+        <form action="/auth/dash" method="POST" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" name="username" class="form-control" id="username" placeholder="Enter Username">
+          </div>
+          <div class="form-group">
+            <label for="fullname">Fullname</label>
+            <input type="text" name="fullname" class="form-control" id="fullname" placeholder="Enter Fullname">
+          </div>
+          <div class="form-group">
+            <label for="country">Country</label>
+            <input name="country" type="text" class="form-control" id="country" placeholder="Enter Country">
+          </div>
+          <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" name="email" class="form-control" id="email" placeholder="Enter email">
+          </div>
+             <div class="form-group">
+            <label for="picture">Picture</label>
+            <input type="file" class="form-control" id="picture" name="picture">
+                  </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input name="password" type="password" class="form-control" id="password" placeholder="Enter password">
+          </div>
+          <!-- Add more form fields as needed -->
+           <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-success">Submit</button>
+      </div>
+        </form>
+      </div>
+     
+    </div>
+  </div>
+</div>
+
+
+
+    <ul class="user-main">
+      {{#each getUsers}}
+
+
+<div class="modal fade" id="updateUserModal{{this.id}}" tabindex="-1" role="dialog" aria-labelledby="updateUserModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateUserModalLabel">Update User</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Your user update form can be added here -->
+        <!-- You can populate the input fields with existing user data for editing -->
+        <form action="/auth/updateDash" method="POST" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="updatedUsername">Username</label>
+            <input type="text" name="username" class="form-control" id="updatedUsername"  value="{{this.username}}">
+          </div>
+          <input type="hidden" name="id" value="{{this.id}}">
+
+          <div class="form-group">
+            <label for="fullname">Fullname</label>
+            <input type="text" name="fullname" class="form-control" id="fullname" value="{{this.fullname}}">
+          </div>
+          <div class="form-group">
+            <label for="country">Country</label>
+            <input name="country" type="text" class="form-control" id="country" value="{{this.country}}">
+          </div>
+                 <div class="form-group">
+            <label for="picture">Picture</label>
+            <input type="file" class="form-control" id="picture" name="picture">
+                  </div>
+          <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" name="email" class="form-control" id="email" value="{{this.email}}">
+          </div>
+          
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input name="password" type="password" class="form-control" id="password" placeholder="Enter Password">
+          </div>
+
+
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-success">Update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+  <div class="modal fade" id="viewUserModal{{this.id}}" tabindex="-1" role="dialog" aria-labelledby="viewUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="viewUserModalLabel">View User Detail</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-4">
+              <!-- User Picture -->
+              <img class="user-profile-view" src="/pictures/upload/users/{{this.username}}.jpg">
+            </div>
+            <div class="user-detail">
+              <!-- User Details -->
+              <h3>{{this.fullname}}</h3>
+              <p><strong>Username:</strong> {{this.username}}</p>
+              <p><strong>Email:</strong> {{this.email}}</p>
+              <p><strong>Country:</strong> {{this.country}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="user-box">
+    <img class="user-profile" src="/pictures/upload/users/{{this.username}}.jpg">
+    <li>{{this.fullname}}</li>
+    <div class="icons-side">
+           <button  id="update" class="icon-button">
+      <a href="#" data-toggle="modal" data-target="#updateUserModal{{this.id}}">
+        <img id="update" class="icon-pic" src="/pictures/dashboard/update.png">
+      </a>
+             </button>
+          <button  id="view" class="icon-button">
+      <a href="#" data-toggle="modal" data-target="#viewUserModal{{this.id}}">
+        <img id="view" class="icon-pic" src="/pictures/dashboard/view.png">
+      </a>
+       </button>
+      <form action="/auth/deleteUser/{{this.id}}" method="POST">
+    <button type="submit" id="delete" class="icon-button">
+      <img class="icon-pic" src="/pictures/dashboard/delete.png">
+    </button>
+  </form>
+
+      </div>
+      </div>
+
+
+      {{/each}}
+    </ul>
+  </main>
+
+
+

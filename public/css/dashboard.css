@@ -279,7 +279,7 @@ body {
   background: #f0f0f0;
   box-shadow: 5px 5px 10px #d9d9d9, -5px -5px 10px #ffffff; /* Neumorphic shadows and highlights */
   transition: all 0.3s ease;
-  width: 15rem;
+  width: 18rem;
 }
 
 .user-box:hover {
@@ -296,7 +296,27 @@ body {
   display: block;
   box-shadow: 3px 3px 5px #d9d9d9, -3px -3px 5px #ffffff; /* Neumorphic shadows and highlights */
 }
+.user-profile-view{
+    width: 200px;
+  height: 200px;
+  border-radius: 30px;
+    object-fit: cover;
+      display: block;
+  box-shadow: 3px 3px 5px #d9d9d9, -3px -3px 5px #ffffff; /* Neumorphic shadows and highlights */
 
+
+}
+.user-detail{
+
+  line-height: normal;
+text-align: left;
+}
+.icon-button{
+ border: none;
+border-radius: 50%;
+box-shadow: 3px 3px 5px #d9d9d9, -3px -3px 5px #ffffff;
+margin: 10px;
+ }
 li {
   text-align: center;
   color: #333;

@@ -1,10 +1,12 @@
 
 
 const express = require("express");
+const dashController = require("../controllers/dashcontrol");
 const authController = require("../controllers/auth");
 const path = require("path");
 const router = express.Router();
 const mysql = require("../connection").con;
+const { deleteUser } = require('../controllers/dashcontrol');
 
 // Import the multer middleware for handling multipart form data
 const multer = require('multer');
@@ -59,7 +61,28 @@ router.post('/uploadArtwork', artworkUpload.single('artPicture'), (req, res) => 
 // Update the route to include the upload middleware
 router.post('/signup', upload.single('picture'), authController.signup);
 router.post('/login', authController.login);
-// router.post('/dashboard', authController.adminCreateUser);
+router.post('/dash', upload.single('picture'),dashController.adminCreateUser,(req,res)=>{
+
+res.redirect('/dashboard');
+
+});
+router.post('/updatedash', upload.single('picture'),dashController.adminUpdateUser,(req,res)=>{
+
+res.redirect('/dashboard');
+
+});
+
+router.post('/deleteUser/:id', async (req, res) => {
+  const userId = req.params.id;
+
+  try {
+    await deleteUser(userId);
+    res.redirect('/dashboard');
+  } catch (err) {
+    res.status(500).send('Internal server error');
+  }
+});
+
 
 router.get('/artworks', async (req, res) => {
   try {
