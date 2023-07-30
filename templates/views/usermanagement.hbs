@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="/css/usermanagement.css">
+        <link rel="stylesheet" type="text/css" href="/css/dashboard.css">
+
+</head>
+<body>
+   <link rel="stylesheet" href="https://cdn.lineicons.com/2.0/LineIcons.css">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Hind+Vadodara:wght@300;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<div class="my-container">
+  <div class="header">
+    <div class="header-logo">
+        <img src="/pictures/logo.png" class="logo">
+    </div>
+    <div class="header-search">
+      <button class="button-menu">
+          <div class="btn-line"></div>
+          <div class="btn-line"></div>
+          <div class="btn-line"></div>
+      </button>
+      <input type="search" placeholder="Search Documentation..." />
+    </div>
+  </div>
+  <div class="main">
+    <div class="sidebar">
+      <ul>
+        <li><a href="/dashboard" class="active"><i class="lni lni-home"></i><span>Dashboard</span></a></li>
+        <li><a href="#"><i class="lni lni-users"></i><span>User Management</span></a></li>
+        <li><a href="/adminmanagement"><i class="lni lni-control-panel"></i><span>Admin Management</span></a></li>
+        <li><a href="#artworkManagement"><i class="lni lni-image"></i><span>Artwork Management</span></a></li>
+        <li><a href="#notifications"><i class="lni lni-bullhorn"></i><span>Notifications</span></a></li>
+        <li><a href="#helpSupport"><i class="lni lni-support"></i><span>Help & Support</span></a></li>
+      </ul>
+    </div>
+    <div class="page-content">
+
+<div id="home" class="box-container">
+
+
+                        
+
+  <main class="main-user">
+        <button class="add-user" data-toggle="modal" data-target="#createUserModal">
+  Create user <img class="icon-pic" src="/pictures/dashboard/create.png">
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="createUserModal" tabindex="-1" role="dialog" aria-labelledby="createUserModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createUserModalLabel">Create User</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Your user creation form can be added here -->
+        <form action="/auth/createuser" method="POST" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" name="username" class="form-control" id="username" placeholder="Enter Username">
+          </div>
+          <div class="form-group">
+            <label for="fullname">Fullname</label>
+            <input type="text" name="fullname" class="form-control" id="fullname" placeholder="Enter Fullname">
+          </div>
+          <div class="form-group">
+            <label for="country">Country</label>
+            <input name="country" type="text" class="form-control" id="country" placeholder="Enter Country">
+          </div>
+          <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" name="email" class="form-control" id="email" placeholder="Enter email">
+          </div>
+             <div class="form-group">
+            <label for="picture">Picture</label>
+            <input type="file" class="form-control" id="picture" name="picture">
+                  </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input name="password" type="password" class="form-control" id="password" placeholder="Enter password">
+          </div>
+          <!-- Add more form fields as needed -->
+           <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-success">Submit</button>
+      </div>
+        </form>
+      </div>
+     
+    </div>
+  </div>
+</div>
+
+
+
+    <ul class="user-main">
+      {{#each getUsers}}
+<div class="modal fade" id="updateUserModal{{this.id}}" tabindex="-1" role="dialog" aria-labelledby="updateUserModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateUserModalLabel">Update User</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+    
+        <form action="/auth/updateuser" method="POST" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="updatedUsername">Username</label>
+            <input type="text" name="username" class="form-control" id="updatedUsername"  value="{{this.username}}">
+          </div>
+          <input type="hidden" name="id" value="{{this.id}}">
+
+          <div class="form-group">
+            <label for="fullname">Fullname</label>
+            <input type="text" name="fullname" class="form-control" id="fullname" value="{{this.fullname}}">
+          </div>
+          <div class="form-group">
+            <label for="country">Country</label>
+            <input name="country" type="text" class="form-control" id="country" value="{{this.country}}">
+          </div>
+                 <div class="form-group">
+            <label for="picture">Picture</label>
+            <input type="file" class="form-control" id="picture" name="picture">
+                  </div>
+          <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" name="email" class="form-control" id="email" value="{{this.email}}">
+          </div>
+          
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input name="password" type="password" class="form-control" id="password" placeholder="Enter Password">
+          </div>
+
+
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-success">Update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+  <div class="modal fade" id="viewUserModal{{this.id}}" tabindex="-1" role="dialog" aria-labelledby="viewUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="viewUserModalLabel">View User Detail</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-4">
+              <!-- User Picture -->
+              <img class="user-profile-view" src="/pictures/upload/users/{{this.username}}.jpg">
+            </div>
+            <div class="user-detail">
+              <!-- User Details -->
+              <h3>{{this.fullname}}</h3>
+              <p><strong>Username:</strong> {{this.username}}</p>
+              <p><strong>Email:</strong> {{this.email}}</p>
+              <p><strong>Country:</strong> {{this.country}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="user-box">
+    <img class="user-profile" src="/pictures/upload/users/{{this.username}}.jpg">
+    <li>{{this.fullname}}</li>
+    <div class="icons-side">
+           <button  id="update" class="icon-button">
+      <a href="#" data-toggle="modal" data-target="#updateUserModal{{this.id}}">
+        <img id="update" class="icon-pic" src="/pictures/dashboard/update.png">
+      </a>
+             </button>
+          <button  id="view" class="icon-button">
+      <a href="#" data-toggle="modal" data-target="#viewUserModal{{this.id}}">
+        <img id="view" class="icon-pic" src="/pictures/dashboard/view.png">
+      </a>
+       </button>
+      <form action="/auth/deleteUser/{{this.id}}" method="POST">
+    <button type="submit" id="delete" class="icon-button">
+      <img class="icon-pic" src="/pictures/dashboard/delete.png">
+    </button>
+  </form>
+
+      </div>
+      </div>
+
+
+      {{/each}}
+    </ul>
+  </main>
+
+
+
+
+</div>
+
+    </div>
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
+
+

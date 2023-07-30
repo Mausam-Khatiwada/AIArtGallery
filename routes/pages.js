@@ -1,6 +1,7 @@
 
 const express = require("express");
 const userController = require('../controllers/auth');
+const dashController = require('../controllers/dashcontrol');
 const router = express.Router();
 const artworkController = require('../controllers/artwork'); // Add this line to import the artwork controller
 
@@ -12,7 +13,36 @@ router.get('/login', (req, res) => {
   res.render('login');
 });
 
+router.get('/adminmanagement',
+  userController.isAdminLoggedIn,
+ dashController.getAdmin,
+ (req, res) => {
+if (req.admin) {
+   res.render('adminmanagement',{
+    getAdmin:req.getAdmin
+   });
+}
+else{
+          res.redirect("/login");
 
+}
+ 
+});
+router.get('/usermanagement',
+ userController.getUsers,
+userController.isAdminLoggedIn,
+
+  (req, res) => {
+    if (req.admin) {
+        res.render('usermanagement',{
+     getUsers:req.getUsers
+  });
+    }
+    else{
+        res.redirect("/login");
+    }
+
+});
 router.get('/signup', (req, res) => {
   res.render('signup');
 });
@@ -21,7 +51,7 @@ router.get('/dashboard',
   userController.countUsers,
   userController.countAdmin,
   userController.countArtworks,
-  userController.getUsers,
+ 
    (req, res) => {
   if (req.admin) {
     res.render('dashboard', { 
@@ -29,7 +59,8 @@ router.get('/dashboard',
       userCount:req.userCount,
       adminCount:req.adminCount,
       artworkCount:req.artworkCount,
-      getUsers:req.getUsers});
+    
+    });
   } else {
     res.redirect("/login");
   }

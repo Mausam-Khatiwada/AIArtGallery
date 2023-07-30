@@ -33,13 +33,14 @@ return res.status(401).render('login',{
 
 }
 else{
-	if (password!=result[0].password) {
+		if(!(await bcrypt.compare(password, result[0].password))){
 
-		return res.status(401).render('login',{
+return res.status(401).render('login',{
 		msg: "Oops! Invalid credentials. Please enter correct data!",
 		msg_type:"error",
 
 	});
+
 	}
 	else{
 		console.log("This is admin speaking!!!");
@@ -365,38 +366,3 @@ next();
 
 
 
-exports.adminCreateUser = (req,res)=>{
-const {username,fullname,email,country,password} = req.body;
-
-
-mysql.query('SELECT username From users WHERE username = ?',[username], async(error, results)=>{
-
-if (error) {
-
-		console.log(error);
-
-	}
-	if (results.length>0) {
-		return res.render('dashboard',{
-
-			message: '*username is already registered!'
-		})
-	}
-
-
-
-	mysql.query('INSERT INTO users SET ?',{username:username,fullname:fullname, email:email, country:country, password:password}, (error, results)=>{
-if (error) {
-	console.log(error);
-}
-else{
-	return res.render("dashboard",{
-		registermessage: 'User registered!'
-	})
-}
-})
-
-
-})
-
-}

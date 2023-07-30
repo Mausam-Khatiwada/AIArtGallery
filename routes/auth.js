@@ -7,12 +7,13 @@ const path = require("path");
 const router = express.Router();
 const mysql = require("../connection").con;
 const { deleteUser } = require('../controllers/dashcontrol');
-
-// Import the multer middleware for handling multipart form data
+const { deleteAdmin } = require('../controllers/dashcontrol');
 const multer = require('multer');
-const artworkController = require('../controllers/artwork'); // Add this line to import the artwork controller
+const artworkController = require('../controllers/artwork');
 
-// ... (existing code)// Set up the destination and filename for file uploads using multer
+
+
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'public/pictures/upload/users');
@@ -23,9 +24,9 @@ const storage = multer.diskStorage({
     callback(null, uniqueFileName);
   }
 });
-
-// Create the multer instance with the configured storage
 const upload = multer({ storage: storage });
+
+
 
 const artworkStorage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -36,13 +37,27 @@ const artworkStorage = multer.diskStorage({
     cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
   },
 });
-
 const artworkUpload = multer({ storage: artworkStorage });
 
-// Apply the isLoggedIn middleware before the routes
+
+
+const adminStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'public/pictures/upload/admin');
+  },
+  filename: (req, file, cb) => {
+    const username = req.body.adminusername;
+    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+  },
+});
+const adminupload = multer({ storage: adminStorage });
+
+
+
+
+
 router.use(authController.isLoggedIn);
 
-// Handle artwork form submission
 router.post('/uploadArtwork', artworkUpload.single('artPicture'), (req, res) => {
   // Your code to handle artwork upload and save it to the database
   const { artistusername, artPrompt, arttitle, artistName } = req.body;
@@ -61,12 +76,21 @@ router.post('/uploadArtwork', artworkUpload.single('artPicture'), (req, res) => 
 // Update the route to include the upload middleware
 router.post('/signup', upload.single('picture'), authController.signup);
 router.post('/login', authController.login);
-router.post('/dash', upload.single('picture'),dashController.adminCreateUser,(req,res)=>{
+router.post('/createuser', upload.single('picture'),dashController.adminCreateUser,(req,res)=>{
 
-res.redirect('/dashboard');
+res.redirect('/usermanagement');
 
 });
-router.post('/updatedash', upload.single('picture'),dashController.adminUpdateUser,(req,res)=>{
+
+
+router.post('/createadmin', adminupload.single('adminpicture'), dashController.adminCreateAdmin,(req,res)=>{
+
+
+  res.redirect('/adminmanagement');
+})
+
+
+router.post('/updateuser', upload.single('picture'),dashController.adminUpdateUser,(req,res)=>{
 
 res.redirect('/dashboard');
 
@@ -77,7 +101,17 @@ router.post('/deleteUser/:id', async (req, res) => {
 
   try {
     await deleteUser(userId);
-    res.redirect('/dashboard');
+    res.redirect('/usermanagement');
+  } catch (err) {
+    res.status(500).send('Internal server error');
+  }
+});
+router.post('/deleteAdmin/:id', async (req, res) => {
+  const adminId = req.params.id;
+
+  try {
+    await deleteAdmin(adminId);
+    res.redirect('/adminmanagement');
   } catch (err) {
     res.status(500).send('Internal server error');
   }

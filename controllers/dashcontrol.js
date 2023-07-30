@@ -1,6 +1,9 @@
 const mysql = require("../connection").con;
 const jwt = require("jsonwebtoken");
+const express = require("express");
+
 const bcrypt = require("bcryptjs");
+const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
 const { promisify } = require("util");
@@ -38,13 +41,82 @@ exports.adminCreateUser = async (req, res) => {
             console.log(error);
           } else {
              console.log('user register');
-             res.redirect('/dashboard');
+             res.redirect('/usermanagement');
           }
         }
       );
     }
   );
 };
+
+exports.adminCreateAdmin = async (req, res) => {
+
+
+const adminusername = req.body.adminusername;
+
+  const { adminfullname, adminemail, admincountry, adminpassword } = req.body;
+  let imageUrl = ''; // Initialize imageUrl to an empty string
+
+  if (req.file) {
+    imageUrl = `/pictures/upload/admin/${req.file.filename}`;
+  }
+
+
+  try {
+    const hashedPassword = await bcrypt.hash(adminpassword, 8);
+
+    const results = await new Promise((resolve, reject) => {
+      mysql.query('SELECT username FROM admin WHERE username = ?', [adminusername], (error, results) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(results);
+        }
+      });
+    });
+
+    if (results.length > 0) {
+      return res.render('adminmanagement', {
+        message: '*username is already registered!',
+      });
+    }
+
+    const insertResult = await new Promise((resolve, reject) => {
+      mysql.query(
+        'INSERT INTO admin SET ?',
+        {
+          username: adminusername,
+          fullname: adminfullname,
+          email: adminemail,
+          country: admincountry,
+          path: imageUrl,
+          password: hashedPassword,
+        },
+        (error, results) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(results);
+          }
+        }
+      );
+    });
+
+    console.log('Admin registered:', insertResult);
+    res.redirect('/dashboard');
+  } catch (error) {
+    console.error('Error occurred:', error);
+    // Handle the error appropriately (e.g., send an error response to the client)
+    res.status(500).send('Error occurred while creating admin');
+  }
+};
+
+
+
+
+
+
+
 
 
 
@@ -98,7 +170,7 @@ exports.adminUpdateUser = async (req, res) => {
               return res.status(500).send('Internal server error');
             } else {
               console.log('user updated');
-              res.redirect('/dashboard');
+              res.redirect('/usermanagement');
             }
           }
         );
@@ -155,3 +227,66 @@ exports.deleteUser = async (userId) => {
     throw err;
   }
 };
+exports.deleteAdmin = async (adminId) => {
+  try {
+    // First, fetch the user's data to get the username for deleting the associated picture
+    const admin = await new Promise((resolve, reject) => {
+      mysql.query('SELECT username FROM admin WHERE id = ?', [adminId], (error, results) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(results[0]);
+        }
+      });
+    });
+
+    if (!admin) {
+      throw new Error('Admin not found');
+    }
+
+    const username = admin.username;
+
+    // Delete the user's profile picture file
+    const filePath = path.join(__dirname, '/pictures/upload/admin/', username + '.jpg');
+
+    fs.unlink(filePath, (err) => {
+      if (err && err.code !== 'ENOENT') {
+        console.error('Error deleting admin profile picture:', err);
+      }
+    });
+
+    // Delete the user from the database
+    await new Promise((resolve, reject) => {
+      mysql.query('DELETE FROM admin WHERE id = ?', [adminId], (error, results) => {
+        if (error) {
+          reject(error);
+        } else {
+          console.log('Admin deleted');
+          resolve();
+        }
+      });
+    });
+  } catch (err) {
+    console.error('Unexpected error:', err);
+    throw err;
+  }
+};
+exports.getAdmin = (req,res,next)=>{
+
+mysql.query('SELECT * from admin',(err,result)=>{
+
+
+if (err) {
+  console.log(err);
+}
+else{
+const getAdmin = result;
+console.log(getAdmin)
+req.getAdmin=getAdmin;
+next();
+}
+
+
+})
+
+}
