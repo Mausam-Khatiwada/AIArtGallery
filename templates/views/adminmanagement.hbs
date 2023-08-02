@@ -99,44 +99,44 @@
 
  <ul class="user-main">
       {{#each getAdmin}}
-<div class="modal fade" id="updateUserModal{{this.id}}" tabindex="-1" role="dialog" aria-labelledby="updateUserModalLabel" aria-hidden="true">
+<div class="modal fade" id="updateAdminModal{{this.id}}" tabindex="-1" role="dialog" aria-labelledby="updateAdminModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="updateUserModalLabel">Update Admin</h5>
+        <h5 class="modal-title" id="updateAdminModalLabel">Update Admin</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
     
-        <form action="/auth/updateuser" method="POST" enctype="multipart/form-data">
+        <form action="/auth/updateadmin" method="POST" enctype="multipart/form-data">
           <div class="form-group">
             <label for="updatedUsername">Username</label>
-            <input type="text" name="username" class="form-control" id="updatedUsername"  value="{{this.username}}">
+            <input type="text" name="adminusername" class="form-control" id="updatedUsername"  value="{{this.username}}">
           </div>
-          <input type="hidden" name="id" value="{{this.id}}">
+          <input type="hidden" name="adminid" value="{{this.id}}">
 
           <div class="form-group">
             <label for="fullname">Fullname</label>
-            <input type="text" name="fullname" class="form-control" id="fullname" value="{{this.fullname}}">
+            <input type="text" name="adminfullname" class="form-control" id="fullname" value="{{this.fullname}}">
           </div>
           <div class="form-group">
             <label for="country">Country</label>
-            <input name="country" type="text" class="form-control" id="country" value="{{this.country}}">
+            <input name="admincountry" type="text" class="form-control" id="country" value="{{this.country}}">
           </div>
                  <div class="form-group">
             <label for="picture">Picture</label>
-            <input type="file" class="form-control" id="picture" name="picture">
+            <input type="file" class="form-control" id="picture" name="adminpicture">
                   </div>
           <div class="form-group">
             <label for="email">Email address</label>
-            <input type="email" name="email" class="form-control" id="email" value="{{this.email}}">
+            <input type="email" name="adminemail" class="form-control" id="email" value="{{this.email}}">
           </div>
           
           <div class="form-group">
             <label for="password">Password</label>
-            <input name="password" type="password" class="form-control" id="password" placeholder="Enter Password">
+            <input name="adminpassword" type="password" class="form-control" id="password" placeholder="Enter Password">
           </div>
 
 

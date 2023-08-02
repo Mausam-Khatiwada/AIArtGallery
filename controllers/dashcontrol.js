@@ -114,12 +114,6 @@ const adminusername = req.body.adminusername;
 
 
 
-
-
-
-
-
-
 exports.adminUpdateUser = async (req, res) => {
   try {
     const { id, username, fullname, email, country, password } = req.body;
@@ -181,6 +175,87 @@ exports.adminUpdateUser = async (req, res) => {
     return res.status(500).send('Internal server error');
   }
 };
+
+
+exports.adminUpdateAdmin = async (req, res) => {
+  try {
+    const { adminid, adminusername, adminfullname, adminemail, admincountry, adminpassword } = req.body;
+    const hashedPassword = await bcrypt.hash(adminpassword, 10);
+
+    mysql.query(
+      'SELECT path FROM admin WHERE id = ?',
+      [adminid],
+      async (error, results) => {
+        if (error) {
+          console.error('Error executing SELECT query:', error);
+          return res.status(500).send('Internal server error');
+        }
+
+        console.log(`Result of path = ${results[0].path}`);
+        let imageUrl = results[0].path; // Get the existing profile picture path
+
+        if (req.file) {
+          const prevFilePath = path.join(__dirname,`../public${imageUrl}`);
+          // If a new picture is uploaded, delete the existing file from the file system
+          if (prevFilePath) {
+
+            fs.unlink(prevFilePath, (err) => {
+              if (err && err.code !== 'ENOENT') {
+                console.error('Error deleting old profile picture:', err);
+              }
+            });
+          }
+
+          // Move the new uploaded file to the final destination
+          const newFilePath = path.join(__dirname, "../public/pictures/upload/admin/", adminusername + '-' + Date.now() + '.jpg');
+
+          fs.rename(req.file.path, newFilePath, (err) => {
+            if (err) {
+              console.error('Error renaming profile picture:', err);
+            } else {
+              // Update the imageUrl with the new file path
+              imageUrl = '/pictures/upload/admin/' + path.basename(newFilePath);
+
+              // Update the 'path' column in the database with the new file path
+              mysql.query(
+                'UPDATE admin SET username = ?, fullname = ?, email = ?, country = ?, password = ?, path = ? WHERE id = ?',
+                [adminusername, adminfullname, adminemail, admincountry, hashedPassword, imageUrl, adminid],
+                (error, results) => {
+                  if (error) {
+                    console.error('Error executing UPDATE query:', error);
+                    return res.status(500).send('Internal server error');
+                  } else {
+                    console.log('admin updated');
+                    res.redirect('/adminmanagement');
+                  }
+                }
+              );
+            }
+          });
+        } else {
+          // If no picture was uploaded, only update the non-picture fields
+          mysql.query(
+            'UPDATE admin SET username = ?, fullname = ?, email = ?, country = ?, password = ? WHERE id = ?',
+            [adminusername, adminfullname, adminemail, admincountry, hashedPassword, adminid],
+            (error, results) => {
+              if (error) {
+                console.error('Error executing UPDATE query:', error);
+                return res.status(500).send('Internal server error');
+              } else {
+                console.log('admin updated');
+                res.redirect('/adminmanagement');
+              }
+            }
+          );
+        }
+      }
+    );
+  } catch (err) {
+    console.error('Unexpected error:', err);
+    return res.status(500).send('Internal server error');
+  }
+};
+
 
 
 exports.deleteUser = async (userId) => {

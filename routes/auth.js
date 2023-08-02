@@ -95,6 +95,11 @@ router.post('/updateuser', upload.single('picture'),dashController.adminUpdateUs
 res.redirect('/dashboard');
 
 });
+router.post('/updateadmin', adminupload.single('adminpicture'),dashController.adminUpdateAdmin,(req,res)=>{
+
+res.redirect('/adminmanagement');
+
+});
 
 router.post('/deleteUser/:id', async (req, res) => {
   const userId = req.params.id;
