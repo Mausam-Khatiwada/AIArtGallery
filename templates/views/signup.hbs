@@ -45,7 +45,7 @@
                         <label class="label" for="emailAddress">
                         	<img src="/pictures/signup/email.png" class="labelIcon">
                             <span>Email Address*</span></label>
-                        <input type="email" name="email" class="input" id="emailAddress" placeholder="Enter your Email Address">
+                        <input type="text" name="email" class="input" id="emailAddress" placeholder="Enter your Email Address">
                     </div>
 
                         
@@ -53,7 +53,7 @@
                         <label class="label" for="picture">
                             <img src="/pictures/signup/picture.png" class="labelIcon">
                             <span>Picture*</span></label>
-                <input class="input" type="file" name="picture">
+                <input id="user-picture" class="input" type="file" name="picture">
                     </div>
 
 
@@ -339,4 +339,85 @@
 </div>
 
 </body>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="sweetalert2.min.js"></script>
+<link rel="stylesheet" href="sweetalert2.min.css">
+<script type="text/javascript">
+
+        function validateSignupForm() {
+            const username = document.getElementById("username").value;
+            const fullname = document.getElementById("fullname").value;
+            const email = document.getElementById("emailAddress").value;
+            const password = document.getElementById("password").value;
+            const picture = document.getElementById("user-picture").value;
+            const confirmpassword = document.getElementById("confirmpassword").value;
+            const country = document.getElementById("country").value;
+
+          
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!username || !fullname || !email || !picture || !password || !confirmpassword || !country) {
+                Swal.fire({
+  position: 'top-end',
+  icon: 'error',
+  title: 'Please fill all the fields.',
+  showConfirmButton: false,
+  timer: 1500
+})
+                return false;
+            }
+
+            // Validate email format
+            if (!emailRegex.test(email)) {
+                Swal.fire({
+  position: 'top-end',
+  icon: 'error',
+  title: 'Invalid Email Address!',
+  showConfirmButton: false,
+  timer: 1500
+})
+                return false;
+            }
+
+            // Check if passwords match
+            if (password !== confirmpassword) {
+                alert("Passwords do not match.");
+                return false;
+            }
+
+            // Password length should be at least 6 characters
+            if (password.length < 6) {
+                Swal.fire({
+  position: 'top-end',
+  icon: 'error',
+  title: 'Password should be at least 6 characters long!',
+  showConfirmButton: false,
+  timer: 1500
+})
+             
+                return false;
+            }
+
+            // Additional validation checks can be added here based on your requirements
+
+            // If all validation passes, the form can be submitted
+            Swal.fire({
+  position: 'top-end',
+  icon: 'success',
+  title: 'Successfully registered!',
+  showConfirmButton: false,
+  timer: 1500
+})
+            return true;
+        }
+
+        // Attach the validation function to the form's submit event
+        document.querySelector("form").addEventListener("submit", function(event) {
+            // Prevent the form from submitting if validation fails
+            if (!validateSignupForm()) {
+                event.preventDefault();
+            }
+        });
+
+</script>
 </html>
