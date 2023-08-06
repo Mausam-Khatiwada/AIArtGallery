@@ -68,9 +68,7 @@ body {
   align-items: center;
   flex-basis: 100%;
 }
-.sidebar ul li a.active i {
-  color: #303f9e;
-}
+
 .site-logo {
   height: 32px;
   width: 32px;
@@ -182,7 +180,7 @@ body {
   justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
 }
 

@@ -11,7 +11,7 @@ body{
 }
 .main-user{
     display: flex;
-
+flex-direction:column;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
@@ -110,6 +110,7 @@ margin: 20px;
 .add-user{
   margin: 0;
   font-size: 20px;
+  font-weight: bold;
   cursor: pointer;
   border-radius: 20px;
   width: 200px;
@@ -117,5 +118,7 @@ margin: 20px;
 align-items: center;
 justify-content: center;
   box-shadow: 3px 3px 5px #d9d9d9, -3px -3px 5px #ffffff; /* Neumorphic shadows and highlights */
-
+    border: none;
+    background-color: #45a049;
+    color: white;
 }
