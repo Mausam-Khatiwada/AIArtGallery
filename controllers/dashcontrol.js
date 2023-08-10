@@ -346,6 +346,52 @@ exports.deleteAdmin = async (adminId) => {
     throw err;
   }
 };
+exports.deleteArtwork = async (artworkId) => {
+  try {
+    const artwork = await new Promise((resolve, reject) => {
+      mysql.query('SELECT path FROM artwork WHERE id = ?', [artworkId], (error, results) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(results[0]);
+        }
+      });
+    });
+
+    if (!artwork) {
+      throw new Error('Artwork not found');
+    }
+   const artworkPath = path.join(__dirname,`../public${artwork.path}`);
+     console.log(artworkPath);
+
+    // Delete the user's profile picture file
+
+    fs.unlink(artworkPath, (err) => {
+      if (err && err.code !== 'ENOENT') {
+        console.error('Error deleting artwork picture:', err);
+      }
+      else{
+        console.log("Artwork picture delected successfully");
+      }
+    });
+
+    // Delete the artwork from the database
+    await new Promise((resolve, reject) => {
+      mysql.query('DELETE FROM artwork WHERE id = ?', [artworkId], (error, results) => {
+        if (error) {
+          reject(error);
+        } else {
+          console.log('Artwork deleted');
+          resolve();
+        }
+      });
+    });
+  } catch (err) {
+    console.error('Unexpected error:', err);
+    throw err;
+  }
+};
+
 exports.getAdmin = (req,res,next)=>{
 
 mysql.query('SELECT * from admin',(err,result)=>{

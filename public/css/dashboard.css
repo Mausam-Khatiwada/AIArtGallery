@@ -17,13 +17,24 @@ body {
   display: flex;
   flex: 1;
 }
+.sidebar-container {
+  position: relative; /* Ensure relative positioning for the sidebar */
+  display: flex; /* Add this to make sure the container expands vertically */
+  height: 100vh; /* Set the height to 100% of the viewport height */
+}
+
 .sidebar {
+  position: sticky;
+
   height: 100%;
   width: 220px;
   box-sizing: border-box;
   box-shadow: 0 0 2rem 0 rgb(0 0 0 / 5%);
   transition: width 0.5s ease;
+  z-index: 100; /* Make sure the sidebar stays above the content */
+  /* The rest of your sidebar styles remain the same */
 }
+
 .container.nav-closed .sidebar,
 .container.nav-closed .header-logo {
   width: 0;
@@ -241,3 +252,10 @@ body {
   }
 }
 
+.logout-pic{
+  top: 5px;
+  position: absolute;
+  right: 10px;
+  width: 40px;
+  cursor: pointer;
+}

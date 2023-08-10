@@ -10,7 +10,7 @@ const { deleteUser } = require('../controllers/dashcontrol');
 const { deleteAdmin } = require('../controllers/dashcontrol');
 const multer = require('multer');
 const artworkController = require('../controllers/artwork');
-
+const {deleteArtwork} = require('../controllers/dashcontrol');
 
 
 
@@ -117,6 +117,16 @@ router.post('/deleteAdmin/:id', async (req, res) => {
   try {
     await deleteAdmin(adminId);
     res.redirect('/adminmanagement');
+  } catch (err) {
+    res.status(500).send('Internal server error');
+  }
+});
+router.post('/deleteArtwork/:id', async (req, res) => {
+  const artworkId = req.params.id;
+// console.log(artworkId);
+  try {
+    await deleteArtwork(artworkId);
+    res.redirect('/artworkmanagement');
   } catch (err) {
     res.status(500).send('Internal server error');
   }

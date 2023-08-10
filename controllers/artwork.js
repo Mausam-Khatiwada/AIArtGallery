@@ -12,4 +12,8 @@ const fetchArtworksFromDatabase = () => {
   });
 };
 
+
+
+
+
 module.exports = { fetchArtworksFromDatabase };

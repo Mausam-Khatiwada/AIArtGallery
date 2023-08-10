@@ -43,6 +43,7 @@ userController.isAdminLoggedIn,
     }
 
 });
+
 router.get('/signup', (req, res) => {
   res.render('signup');
 });
@@ -82,12 +83,27 @@ router.get('/home', userController.isLoggedIn, (req, res) => {
   }
 });
 router.get('/logout', userController.logout);
+router.get('/adminlogout', userController.adminLogout);
 
 router.get('/artworks', userController.isLoggedIn, async (req, res, next) => {
   if (req.users) {
     try {
       const artworks = await artworkController.fetchArtworksFromDatabase(); // Use the artwork controller to fetch data
       res.render('artworks', { users: req.users, artworks }); // Pass the artworks data to the template
+    } catch (error) {
+      console.error("Error fetching artwork data:", error);
+      return res.status(500).send("Error fetching data from the database.");
+    }
+  } else {
+    res.redirect("/login");
+  }
+});
+router.get('/artworkmanagement', userController.isAdminLoggedIn, async (req, res, next) => {
+  if (req.admin) {
+    try {
+      const artworks = await artworkController.fetchArtworksFromDatabase(); // Use the artwork controller to fetch data
+      res.render('artworkmanagement', { admin: req.admin, artworks }); 
+      // console.log("Fetched!")// Pass the artworks data to the template
     } catch (error) {
       console.error("Error fetching artwork data:", error);
       return res.status(500).send("Error fetching data from the database.");

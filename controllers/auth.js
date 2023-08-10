@@ -286,7 +286,13 @@ httpOnly:true
 });
 res.status(200).redirect("/");
 }
-
+exports.adminLogout= async(req,res)=>{
+res.cookie("Admin","logout",{
+expires: new Date(Date.now()+2*1000),
+httpOnly:true
+});
+res.status(200).redirect("/");
+}
 
 
 // Function to handle file upload
