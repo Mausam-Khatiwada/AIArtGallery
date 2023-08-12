@@ -278,7 +278,7 @@ exports.deleteUser = async (userId) => {
     const username = user.username;
 
     // Delete the user's profile picture file
-    const filePath = path.join(__dirname, '/pictures/upload/users/', username + '.jpg');
+    const filePath = path.join(__dirname, '../public/pictures/upload/users/', username+ '.jpg');
 
     fs.unlink(filePath, (err) => {
       if (err && err.code !== 'ENOENT') {
@@ -306,7 +306,7 @@ exports.deleteAdmin = async (adminId) => {
   try {
     // First, fetch the user's data to get the username for deleting the associated picture
     const admin = await new Promise((resolve, reject) => {
-      mysql.query('SELECT username FROM admin WHERE id = ?', [adminId], (error, results) => {
+      mysql.query('SELECT path FROM admin WHERE id = ?', [adminId], (error, results) => {
         if (error) {
           reject(error);
         } else {
@@ -319,12 +319,12 @@ exports.deleteAdmin = async (adminId) => {
       throw new Error('Admin not found');
     }
 
-    const username = admin.username;
+    
 
     // Delete the user's profile picture file
-    const filePath = path.join(__dirname, '/pictures/upload/admin/', username + '.jpg');
+   const adminPicture = path.join(__dirname,`../public${admin.path}`);
 
-    fs.unlink(filePath, (err) => {
+    fs.unlink(adminPicture, (err) => {
       if (err && err.code !== 'ENOENT') {
         console.error('Error deleting admin profile picture:', err);
       }

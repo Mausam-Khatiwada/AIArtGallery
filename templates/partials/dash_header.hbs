@@ -1,0 +1,41 @@
+<div class="navBar">
+  <div class="headerContainer">
+    <div class="logo">
+      AI Art Gallery
+    </div>
+    <div class="menu-icon">
+      <div class="menu-bar"></div>
+      <div class="menu-bar"></div>
+      <div class="menu-bar"></div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="/dashboard"><i class="lni lni-home"></i> Dashboard</a></li>
+      <li><a href="/usermanagement"><i class="lni lni-users"></i> User Management</a></li>
+      <li><a href="/adminmanagement"><i class="lni lni-control-panel"></i> Admin Management</a></li>
+      <li><a href="/artworkmanagement"><i class="lni lni-image"></i> Artwork Management</a></li>
+      <li><a href="/logout"><i class="lni lni-exit"></i> Logout</a></li>
+    </ul>
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function () {
+  const menuIcon = document.querySelector(".menu-icon");
+  const navLinks = document.querySelector(".nav-links");
+  
+  menuIcon.addEventListener("click", function () {
+    navLinks.classList.toggle("active");
+  });
+
+  // Handle sticky navbar
+  window.addEventListener("scroll", function () {
+    const navbar = document.querySelector(".navbar");
+    const scrollPosition = window.scrollY;
+
+    if (scrollPosition > 0) {
+      navbar.classList.add("sticky");
+    } else {
+      navbar.classList.remove("sticky");
+    }
+  });
+});
+</script>

@@ -193,7 +193,9 @@ body {
   margin: 0;
 }
 
-
+.logout-pic{
+  width: 50px;
+}
 
 
 /* Additional styling for the modal */
