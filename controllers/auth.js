@@ -370,5 +370,72 @@ next();
 
 }
 
+exports.addReview = (req,res)=>{
+
+
+const {username,fullname,review} = req.body;
+mysql.query('INSERT INTO reviews SET ?',{username:username,fullname:fullname, review:review}, (error, results)=>{
+if (error) {
+	console.log(error);
+}
+else{
+	console.log("Review added successfully!")
+	res.redirect('/home')
+}
+})
+
+}
+
+exports.getReviews = (req,res,next)=>{
+	mysql.query('SELECT * from reviews',(err,result)=>{
+		if (err) {
+			console.log(err);
+		}
+		else{
+			const getReviews = result;
+			console.log(getReviews)
+			req.getReviews=getReviews;
+			next();
+		}
+
+})
+}
+
+exports.deleteReview = async (reviewId) => {
+  try {
+    // First, fetch the review's data to get any necessary details
+    const reviews = await new Promise((resolve, reject) => {
+      mysql.query('SELECT review, id FROM reviews WHERE id = ?', [reviewId], (error, results) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(results[0]);
+        }
+      });
+    });
+
+    if (!reviews) {
+      throw new Error('Review not found');
+    }
+
+    // Delete the review from the database
+    await new Promise((resolve, reject) => {
+      mysql.query('DELETE FROM reviews WHERE id = ?', [reviewId], (error, results) => {
+        if (error) {
+          reject(error);
+        } else {
+          console.log('Review deleted');
+          resolve();
+        }
+      });
+    });
+
+
+  } catch (err) {
+    console.error('Unexpected error:', err);
+    throw err;
+  }
+};
+
 
 

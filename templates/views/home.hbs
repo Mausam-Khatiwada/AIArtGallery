@@ -70,19 +70,15 @@
     <div class="testimonial-slide">
 
       
-        
+ {{#each getReviews}}
 
       <div class="testimonial">
-        <img class="test-img" src="pictures/Mausam.jpg" alt="Testimonial 1">
-        <p class="testimonial-text">An art lover's dream come true! AI Art Gallery seamlessly blends traditional art with AI-generated masterpieces. A captivating experience that challenges perceptions and celebrates emerging artists.</p>
-        <p class="testimonial-author">- Mausam Khatiwada</p>
+        <img class="test-img" src="/pictures/upload/users/{{this.username}}.jpg" alt="Testimonial 1">
+        <p class="testimonial-text">{{this.review}}</p>
+        <p class="testimonial-author">- {{this.fullname}}</p>
       </div>
+{{/each}}
 
-       <div class="testimonial">
-        <img class="test-img" src="pictures/artwork-image.jpg" alt="Testimonial 1">
-        <p class="testimonial-text">AI Art Gallery is an impressive platform, seamlessly blending technology and creativity. Its real-time search feature makes exploring captivating AI-generated artworks a delightful experience. A must-visit for art enthusiasts seeking to embrace the wonders of AI in the art world.</p>
-        <p class="testimonial-author">- Niraj Pathak</p>
-      </div>
      
     </div>
     <div class="controls">
@@ -102,17 +98,17 @@
     <div class="modal-content">
       <span class="close-btn" onclick="closeReviewModal()">&times;</span>
       <h2>Add Your Review</h2>
-      <form id="reviewForm" class="modal-form">
+      <form action="/auth/addReview" method="post" id="reviewForm" class="modal-form">
         <div class="form-group">
           <label for="reviewName">Full Name:</label>
-          <input type="text" value="{{users.fullname}}" id="reviewName" name="reviewName" required readonly>
+          <input type="text" value="{{users.fullname}}" id="reviewName" name="fullname" required readonly>
         </div>
         <div class="form-group">
-          <input type="hidden" value="{{users.username}}" id="reviewName" name="reviewName" required readonly>
+          <input type="hidden" value="{{users.username}}" id="reviewName" name="username" required readonly>
         </div>
         <div class="form-group">
           <label for="reviewText">Your Review:</label>
-          <textarea id="reviewText" name="reviewText" rows="4" required></textarea>
+          <textarea id="reviewText" name="review" rows="4" required></textarea>
         </div>
         <button type="submit" class="btn">Submit</button>
       </form>

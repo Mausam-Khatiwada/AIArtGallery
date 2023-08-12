@@ -7,6 +7,7 @@ const path = require("path");
 const router = express.Router();
 const mysql = require("../connection").con;
 const { deleteUser } = require('../controllers/dashcontrol');
+const { deleteReview } = require('../controllers/auth');
 const { deleteAdmin } = require('../controllers/dashcontrol');
 const multer = require('multer');
 const artworkController = require('../controllers/artwork');
@@ -72,6 +73,13 @@ router.post('/uploadArtwork', artworkUpload.single('artPicture'), (req, res) => 
     }
   });
 });
+router.post('/addReview', authController.addReview, (req,res)=>{
+res.redirect('/home');
+
+
+});
+
+
 
 // Update the route to include the upload middleware
 router.post('/signup', upload.single('picture'), authController.signup);
@@ -100,6 +108,19 @@ router.post('/updateadmin', adminupload.single('adminpicture'),dashController.ad
 res.redirect('/adminmanagement');
 
 });
+router.post('/deleteReview/:id', async(req,res)=>{
+  const reviewId = req.params.id;
+  try{
+    await deleteReview(reviewId);
+        res.redirect('/reviewsmanagement');
+
+  }
+  catch(err){
+        res.status(500).send('Internal server error');
+
+  }
+
+})
 
 router.post('/deleteUser/:id', async (req, res) => {
   const userId = req.params.id;

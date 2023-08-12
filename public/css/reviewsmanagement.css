@@ -1,0 +1,129 @@
+.review-box {
+  background: #f0f0f0;
+  width: 25%;
+  margin: 1rem;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 8px 8px 20px #d0d0d0, -8px -8px 20px #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.review-container {
+  display: flex;
+  flex-wrap: wrap; /* Added flex-wrap for better responsiveness */
+  justify-content: space-between; /* Adjusted spacing between review-boxes */
+}
+.review-title{
+  font-size: 25px;
+  font-weight: bold;
+  color: green;
+}
+.modalTitle{
+  font-weight: bold;
+}
+.modalBody{
+  padding: 20px;
+  display: flex;
+}
+.review-left{
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+}
+.review-right{
+   width: 60%;
+  display: flex;
+  flex-direction: column;
+}
+.user-image {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.user-name {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.review-text {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+.icons-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto; /* Align at the bottom */
+  padding: 10px 5px; /* Added padding for spacing */
+}
+
+.delete-icon {
+  background-color: darkred;
+  color: white;
+  margin: 1rem;
+  border-radius: 20%;
+  padding: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+.view-icon{
+    background-color: darkblue;
+  color: white;
+  margin: 1rem;
+  border-radius: 20%;
+  padding: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+
+.delete-icon:hover,
+.view-icon:hover
+{
+  background-color: darkgoldenrod;
+  transform: translateY(-2px);
+}
+
+.delete-icon i,
+.view-icon i {
+  font-size: 16px;
+}
+
+.icon-button{
+  border: none !important;
+}
+@media screen and (max-width: 767px) {
+  .review-box {
+    width: 80%;
+  }
+
+  /* Adjusting review-container for smaller screens */
+  .review-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .modalBody{
+    display: block;
+  }
+  .review-left{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.review-right{
+   width: 100%;
+  display: flex;
+  flex-direction: column;
+  text-align: justify;
+  text-justify: inter-word;
+}
+}

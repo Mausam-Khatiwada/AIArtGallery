@@ -75,12 +75,22 @@ router.get('/profile', userController.isLoggedIn, (req, res) => {
   }
 });
 
-router.get('/home', userController.isLoggedIn, (req, res) => {
+router.get('/home', userController.isLoggedIn, userController.getReviews, (req, res) => {
   if (req.users) {
-    res.render('home', { users: req.users });
+    res.render('home', { users: req.users, getReviews:req.getReviews, });
   } else {
     res.redirect("/login");
   }
+});
+router.get('/reviewsmanagement',userController.isAdminLoggedIn, userController.getReviews,(req,res)=>{
+  if (req.admin) {
+     res.render("reviewsmanagement",{getReviews:req.getReviews,});
+  }
+  else{
+        res.redirect("/login");
+
+  }
+ 
 });
 router.get('/logout', userController.logout);
 router.get('/adminlogout', userController.adminLogout);
