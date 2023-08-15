@@ -27,10 +27,12 @@
   color: white;
   background-position: center;
   opacity: 1;
+  width: 100%;
+height: 400px;
 }
 
 .home-section {
-  padding: 60px 0;
+padding: 100px 0;
 }
 
 .home-container {
