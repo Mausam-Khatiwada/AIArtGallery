@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="/css/home.css">
   <link rel="stylesheet" href="/css/footer.css">
   <script src="https://kit.fontawesome.com/ee5eddb182.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
   {{>header}}
@@ -88,11 +89,36 @@
       <button class="prev-btn" onclick="prevSlide()"><img class="arrow" src="pictures/arrowleft.png"></button>
       <button class="next-btn" onclick="nextSlide()"><img class="arrow" src="pictures/arrowright.png"></button>
     </div>
+    <div class="add-review">
+      <button class="add-review-btn" onclick="openReviewModal()">Add Your Review</button>
+    </div>
 </div>
+
   </div>
 
 
-
+<div id="reviewModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeReviewModal()">&times;</span>
+      <h2>Add Your Review</h2>
+      <form id="reviewForm" class="modal-form">
+        <div class="form-group">
+          <label for="reviewName">Full Name:</label>
+          <input type="text" value="{{users.fullname}}" id="reviewName" name="reviewName" required readonly>
+        </div>
+        <div class="form-group">
+          <input type="hidden" value="{{users.username}}" id="reviewName" name="reviewName" required readonly>
+        </div>
+        <div class="form-group">
+          <label for="reviewText">Your Review:</label>
+          <textarea id="reviewText" name="reviewText" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="btn">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
   
 
 
@@ -137,6 +163,21 @@ showSlide(currentSlide);
         $(this).toggleClass('active');
       });
     });
+    function openReviewModal() {
+  const reviewModal = document.getElementById('reviewModal');
+  reviewModal.style.display = 'flex';
+  setTimeout(function() {
+    reviewModal.classList.add('show');
+  }, 50);
+}
+
+function closeReviewModal() {
+  const reviewModal = document.getElementById('reviewModal');
+  reviewModal.classList.remove('show');
+  setTimeout(function() {
+    reviewModal.style.display = 'none';
+  }, 300);
+}
   </script>
 </body>
 </html>

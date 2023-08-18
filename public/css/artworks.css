@@ -23,7 +23,6 @@ body {
 
 .artwork-card {
   background-color: #f0f0f0;
- 
   padding: 20px;
   box-shadow: 10px 10px 20px #d9d9d9, -10px -10px 20px #ffffff;
   transition: box-shadow 0.3s;
@@ -301,3 +300,46 @@ body {
   box-shadow: 0 0 8px #80bdff;
 }
 
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .artworks-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+
+  .neumorphic-box {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .right-content,
+  .left-content {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 20px;
+  }
+
+  .search-container {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 20px;
+  }
+
+  #search-input {
+    width: 100%;
+  }
+
+  .btn-search {
+    margin: 20px 0;
+    width: 100%;
+  }
+
+  .top-section {
+    display: block;
+    margin: 20px;
+  }
+  .modal-content-main{
+  display: flex;
+  flex-direction: column;
+}
+}
