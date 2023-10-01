@@ -374,7 +374,19 @@ exports.addReview = (req,res)=>{
 
 
 const {username,fullname,review} = req.body;
-mysql.query('INSERT INTO reviews SET ?',{username:username,fullname:fullname, review:review}, (error, results)=>{
+mysql.query('SELECT username From reviews WHERE username = ?',[username], async(error, results)=>{
+if (error) {
+
+		console.log(error);
+
+	}
+	if (results.length>0) {
+			console.log("*You have already reviewed!")
+
+		return res.redirect('/home');
+	}
+	else{
+		mysql.query('INSERT INTO reviews SET ?',{username:username,fullname:fullname, review:review}, (error, results)=>{
 if (error) {
 	console.log(error);
 }
@@ -383,7 +395,10 @@ else{
 	res.redirect('/home')
 }
 })
+	}
 
+
+})
 }
 
 exports.getReviews = (req,res,next)=>{

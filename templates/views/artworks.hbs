@@ -88,24 +88,24 @@
   <button class="btn-search" onclick="searchArtworks()">Search</button>
 </div>
 
-<ul id="gallery" class="artwork-main">
-  {{#if artworks}}
-    {{#each artworks}}
-      <li class="artwork-content">
-        <div class="neumorphic-box" data-toggle="modal" data-target="#modal{{@index}}">
-          <img  src="{{this.path}}" alt="{{this.arttitle}}">
-          <div class="artwork-details">
-            <h3>{{this.arttitle}}</h3>
-            <p>Artist: {{this.artist}}</p>
+<div class="neumorphic-box-container">
+  <ul id="gallery" class="artwork-main">
+    {{#if artworks}}
+      {{#each artworks}}
+        <li class="artwork-content">
+          <div class="neumorphic-box" data-toggle="modal" data-target="#modal{{@index}}">
+            <img src="{{this.path}}" alt="{{this.arttitle}}">
+            <div class="artwork-details">
+              <h3>{{this.arttitle}}</h3>
+              <p>Artist: {{this.artist}}</p>
+            </div>
           </div>
-        </div>
-      </li>
-    {{/each}}
-  {{else}}
-    <p>No artworks found.</p>
-  {{/if}}
-</ul>
-
+        </li>
+      {{/each}}
+    {{else}}
+      <p>No artworks found.</p>
+    {{/if}}
+  </ul>
 </div>
 <!-- Bootstrap 4 Modal -->
 {{#each artworks}}
@@ -144,8 +144,11 @@
     </div>
   </div>
 {{/each}}
-
-
+  
+<nav aria-label="Page navigation" class="custom-pagination">
+  <ul class="pagination justify-content-center" id="pagination">
+  </ul>
+</nav>
 
 
   </main>
@@ -171,7 +174,56 @@
     }
   });
 }
+ // Define the number of items per page
+  const itemsPerPage = 9;
+  
+  // Calculate the total number of pages
+  const totalItems = {{artworks.length}};
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
 
+  // Create an array of page numbers
+  const pages = [];
+  for (let i = 1; i <= totalPages; i++) {
+    pages.push(i);
+  }
+
+  // Display the initial page (page 1)
+  showPage(1);
+
+  // Function to display a specific page
+  function showPage(page) {
+    const startIdx = (page - 1) * itemsPerPage;
+    const endIdx = Math.min(startIdx + itemsPerPage, totalItems);
+    const neumorphicBoxes = document.querySelectorAll('.neumorphic-box');
+
+    neumorphicBoxes.forEach((box, index) => {
+      if (index >= startIdx && index < endIdx) {
+        box.style.display = 'block';
+      } else {
+        box.style.display = 'none';
+      }
+    });
+
+    // Update pagination links
+    const pagination = document.getElementById('pagination');
+    pagination.innerHTML = '';
+    pages.forEach((pageNum) => {
+      const li = document.createElement('li');
+      li.className = `page-item ${pageNum === page ? 'active' : ''}`;
+      const a = document.createElement('a');
+      a.className = 'page-link';
+      a.href = '#';
+      a.textContent = pageNum;
+      a.setAttribute('data-page', pageNum);
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        const newPage = parseInt(e.target.getAttribute('data-page'));
+        showPage(newPage);
+      });
+      li.appendChild(a);
+      pagination.appendChild(li);
+    });
+  }
 </script>
 </body>
 </html>
